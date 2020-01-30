@@ -3,60 +3,75 @@ const inquirer = require("inquirer");
 
 // Employee is a parent class
 class Employee {
-    constructor(name, id, title) {
+    constructor(name, id, title, email) {
         this.name = name;
         this.id = id;
+        this.email = email;
         this.title = title;
     }
 
-    getName() { }
+    getName() {
+         return this.name
+     }
 
-    getId() { }
+    getId() { 
+       return this.id
+    }
 
-    getEmail() { }
+    getEmail() {
+       return this.email
+     }
 
     getRole() {
-        return "Employee"
+       return this.title
     }
 }
 
 
 class Manager extends Employee {
     constructor(officeNumber) {
-        super(name, id, title) // accessing parent's properties
+        super(name, id, title, email) // accessing parent's properties
         this.officeNumber = officeNumber;
     }
 
     getRole() {
-        return "Manager"
+       return this.title
     }
 }
 
 
 class Engineer extends Employee {
     constructor(Github) {
-        super(name, id, title); // accessing parent's properties
+        super(name, id, title, email); // accessing parent's properties
         this.Github = Github;
     }
 
-    getGithub() { }
+    getGithub() {
+       return this.Github
+     }
 
     getRole() {
-        return "Engineer"
+       return this.title
     }
 }
+
 
 class Intern extends Employee {
     constructor(school) {
-        super(name, id, title); // accessing parent's properties
+        super(name, id, title, email); // accessing parent's properties
         this.school = school;
     }
-    getSchool() { }
+    getSchool() {
+       return this.school
+     }
 
     getRole() {
-        return "Intern"
+       return this.title
     }
 }
+
+
+
 
 // using inquirer to get user input
 
