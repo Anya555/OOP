@@ -1,5 +1,9 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+
 
 // get manager info
 // write to log file
@@ -19,78 +23,6 @@ const inquirer = require("inquirer");
 // if finished
 // show final message
 
-
-
-// Employee is a parent class
-class Employee {
-    constructor(name, id, email) {
-        this.name = name;
-        this.id = id;
-        this.email = email;
-        this.role = "Employee";
-    }
-
-    getName() {
-        return this.name
-    }
-
-    getId() {
-        return this.id
-    }
-
-    getEmail() {
-        return this.email
-    }
-
-    getRole() {
-        return this.role
-    }
-}
-
-
-class Manager extends Employee {
-    constructor(name, id, email, officeNumber) {
-        super(name, id, email) // accessing parent's properties
-        this.officeNumber = officeNumber;
-        this.role = "Manager"
-    }
-
-    getRole() {
-        return this.role
-    }
-}
-
-
-class Engineer extends Employee {
-    constructor(name, id, email, Github) {
-        super(name, id,  email); // accessing parent's properties
-        this.Github = Github;
-        this.role = "Engineer";
-    }
-
-    getGithub() {
-        return this.Github
-    }
-    getRole() {
-        return this.role
-    }
-}
-
-
-class Intern extends Employee {
-    constructor(name, id, email, school) {
-        super(name, id, email); // accessing parent's properties
-        this.school = school;
-        this.role = "Intern"
-    }
-    getSchool() {
-        return this.school
-    }
-
-    getRole() {
-        return this.role
-    }
-}
 
 
 getManagerInfo();
@@ -130,10 +62,9 @@ function getManagerInfo() {
             manager.getId(),
             manager.getEmail(),
             manager.getRole()
-        ].join("\n\n");
+        ].join("\n");
         fs.writeFile("log.txt", managerInfo, err => {
             if (err) throw err;
-
 
             "-".repeat(60);
         });
@@ -211,7 +142,7 @@ function askEngineerQuestions() {
         engineer.getEmail(),
         engineer.getRole(),
         engineer.getGithub(),
-         ].join("\n\n");
+         ].join("\n");
 
         fs.appendFile("log.txt", engineersInfo, err => {
             if (err) throw err;
@@ -237,8 +168,6 @@ function askInternQuestions() {
     // write to log file using intern methods
     // go to getEmployeeType()
 }
-
-
 
 
 
