@@ -71,6 +71,10 @@ class Intern extends Employee {
 }
 
 
+// creating new Employees objects: Manager, Engineer, Intern
+const manager = new Manager(name, id, title, email, officeNumber);
+const engineer = new Engineer(name, id, title, email, Github);
+const intern = new Intern(name, id, title, email, school);
 
 
 // using inquirer to get user input
@@ -167,3 +171,34 @@ inquirer.prompt([
         ]
     }
 ])
+
+// let prompt = process.argv[2]; //??
+let memberType = process.argv[3];
+
+switch(inquirer) {
+    case 'Manager':
+      if(memberType === Manager){
+        "-".repeat(60);
+        join("\n\n");
+
+        fs.appendFileSync("log.txt", manager, err => {
+          if (err) throw err;
+    
+          console.log(manager);
+          "-".repeat(60);
+      });
+    }
+      break;
+    case 'Engineer':
+      if(memberType === Engineer){
+
+      }
+      break;
+    case 'Intern':
+      if(memberType === Intern){
+
+      }
+      break;
+    default:
+      console.log("Please choose a type of team member you'd like to add")
+  }
