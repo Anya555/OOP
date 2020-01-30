@@ -1,204 +1,268 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 
+// get manager info
+// write to log file
+// go to function asking about type of person
+
+
+// find out whether next person is engineer, intern, or finished
+// if engineer
+// ask engineer questions
+// log engineer stuff
+// ask again
+
+// if intern
+// same as above
+// ask again
+
+// if finished
+// show final message
+
+
+
 // Employee is a parent class
 class Employee {
-    constructor(name, id, title, email) {
+    constructor(name, id, email) {
         this.name = name;
         this.id = id;
         this.email = email;
-        this.title = title;
+        this.role = "Employee";
     }
 
     getName() {
-         return this.name
-     }
+        return this.name
+    }
 
-    getId() { 
-       return this.id
+    getId() {
+        return this.id
     }
 
     getEmail() {
-       return this.email
-     }
+        return this.email
+    }
 
     getRole() {
-       return this.title
+        return this.role
     }
 }
 
 
 class Manager extends Employee {
-    constructor(officeNumber) {
-        super(name, id, title, email) // accessing parent's properties
+    constructor(name, id, email, officeNumber) {
+        super(name, id, email) // accessing parent's properties
         this.officeNumber = officeNumber;
+        this.role = "Manager"
     }
 
     getRole() {
-       return this.title
+        return this.role
     }
 }
 
 
 class Engineer extends Employee {
-    constructor(Github) {
-        super(name, id, title, email); // accessing parent's properties
+    constructor(name, id, email, Github) {
+        super(name, id,  email); // accessing parent's properties
         this.Github = Github;
+        this.role = "Engineer";
     }
 
     getGithub() {
-       return this.Github
-     }
-
+        return this.Github
+    }
     getRole() {
-       return this.title
+        return this.role
     }
 }
 
 
 class Intern extends Employee {
-    constructor(school) {
-        super(name, id, title, email); // accessing parent's properties
+    constructor(name, id, email, school) {
+        super(name, id, email); // accessing parent's properties
         this.school = school;
+        this.role = "Intern"
     }
     getSchool() {
-       return this.school
-     }
+        return this.school
+    }
 
     getRole() {
-       return this.title
+        return this.role
     }
 }
 
 
-// creating new Employees objects: Manager, Engineer, Intern
-const manager = new Manager(name, id, title, email, officeNumber);
-const engineer = new Engineer(name, id, title, email, Github);
-const intern = new Intern(name, id, title, email, school);
+getManagerInfo();
+
+function getManagerInfo() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your manager's name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is your manager's id?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is your manager's email?"
+        },
+        {
+            type: "input",
+            name: "roomNum",
+            message: "What is your manager's office room number?"
+        }
+    ]).then(answers => {
+        answers.name;
+        answers.id;
+        answers.email;
+        answers.roomNum;
+        // create manager object w/ data supplied
+        // log manager info to text file using manager object methods
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.roomNum);
+        const managerInfo = [
+            manager.getName(),
+            manager.getId(),
+            manager.getEmail(),
+            manager.getRole()
+        ].join("\n\n");
+        fs.writeFile("log.txt", managerInfo, err => {
+            if (err) throw err;
 
 
-// using inquirer to get user input
+            "-".repeat(60);
+        });
 
-inquirer.prompt([
-    {
-        type: "input",
-        name: "name",
-        message: "What is your manager's name?"
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "What is your manager's id?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is your manager's email?"
-    },
-    {
-        type: "input",
-        name: "office room number",
-        message: "What is your manager's office room number?"
-    },
-    {
-        type: "list",
-        message: "What type of team member would you like to add?",
-        name: "team member",
-        choices: [
-            "Manager",
-            "Engineer",
-            "Intern"
-        ]
-    },
-    {
-        type: "input",
-        name: "name",
-        message: "What is your engineer's name?"
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "What is your engineer's id?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is your engineer's email?"
-    },
-    {
-        type: "input",
-        name: "Github username",
-        message: "What is your engineer's Github username?"
-    },
-    {
-        type: "list",
-        message: "What type of team member would you like to add?",
-        name: "team member",
-        choices: [
-            "Manager",
-            "Engineer",
-            "Intern"
-        ]
-    },
-    {
-        type: "input",
-        name: "name",
-        message: "What is your intern's name?"
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "What is your intern's id?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is your intern's email?"
-    },
-    {
-        type: "input",
-        name: "school",
-        message: "What is your intern's school?"
-    },
-    {
-        type: "list",
-        message: "What type of team member would you like to add?",
-        name: "team member",
-        choices: [
-            "Manager",
-            "Engineer",
-            "Intern"
-        ]
-    }
-])
+        getEmployeeType();
+    })
+}
 
-// let prompt = process.argv[2]; //??
-let memberType = process.argv[3];
 
-switch(inquirer) {
-    case 'Manager':
-      if(memberType === Manager){
-        "-".repeat(60);
-        join("\n\n");
+function getEmployeeType() {
+    inquirer.prompt([
+        {
+            type: "list",
+            message: "What type of team member would you like to add?",
+            name: "memberType",
+            choices: [
+                "Engineer",
+                "Intern",
+                "I don't want to add anymore members"
+            ]
+        },
+    ]).then(answers => {
+        // switch statement
+        switch (answers.memberType) {
+            case 'Engineer':
+                 
+                    askEngineerQuestions();
+               
+                break;
+            case 'Intern':
+                 
+                    askInternQuestions();
+              
+                break;
+          
+            default:
+                console.log("Your text file has been generated");
+                break;
+        }
+    });
+}
 
-        fs.appendFileSync("log.txt", manager, err => {
-          if (err) throw err;
-    
-          console.log(manager);
-          "-".repeat(60);
-      });
-    }
-      break;
-    case 'Engineer':
-      if(memberType === Engineer){
+function askEngineerQuestions() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your engineer's name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is your engineer's id?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is your engineer's email?"
+        },
+        {
+            type: "input",
+            name: "githubUsername",
+            message: "What is your engineer's Github username?"
+        }
+    ]).then(answers => {
+        answers.name;
+        answers.id;
+        answers.email;
+        answers.githubUsername;
 
-      }
-      break;
-    case 'Intern':
-      if(memberType === Intern){
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.githubUsername);
+        const engineersInfo = [
+            engineer.getName(),
+        engineer.getId(),
+        engineer.getEmail(),
+        engineer.getRole(),
+        engineer.getGithub(),
+         ].join("\n\n");
 
-      }
-      break;
-    default:
-      console.log("Please choose a type of team member you'd like to add")
-  }
+        fs.appendFile("log.txt", engineersInfo, err => {
+            if (err) throw err;
+
+            //   console.log(managerInfo);
+            "-".repeat(60);
+        });
+
+        getEmployeeType();
+    });
+}
+
+
+    // inquirer stuff
+    // after the questions, creae engineer object w/ daata supplied
+    // write to log file using engineer methods
+    // go to getEmployeeType()
+
+
+function askInternQuestions() {
+    // inquirer stuff
+    // after the questions, create intern object w/ data suppplied
+    // write to log file using intern methods
+    // go to getEmployeeType()
+}
+
+
+
+
+
+
+//     {
+//         type: "input",
+//         name: "email",
+//         message: "What is your intern's email?"
+//     },
+//     {
+//         type: "input",
+//         name: "school",
+//         message: "What is your intern's school?"
+//     },
+//     {
+//         type: "list",
+//         message: "What type of team member would you like to add?",
+//         name: "team member",
+//         choices: [
+//             "Manager",
+//             "Engineer",
+//             "Intern"
+//         ]
+//     }
+// 
+
+
