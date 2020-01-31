@@ -58,15 +58,16 @@ function getManagerInfo() {
         // log manager info to text file using manager object methods
         const manager = new Manager(answers.name, answers.id, answers.email, answers.roomNum);
         const managerInfo = [
+            "-".repeat(60),
             manager.getName(),
             manager.getId(),
             manager.getEmail(),
-            manager.getRole()
+            manager.getRole(),
+            "-".repeat(60),
+            "" //makes an empty line break
         ].join("\n");
         fs.writeFile("log.txt", managerInfo, err => {
             if (err) throw err;
-
-            "-".repeat(60);
         });
 
         getEmployeeType();
@@ -90,16 +91,11 @@ function getEmployeeType() {
         // switch statement
         switch (answers.memberType) {
             case 'Engineer':
-                 
-                    askEngineerQuestions();
-               
+                askEngineerQuestions();
                 break;
             case 'Intern':
-                 
-                    askInternQuestions();
-              
+                askInternQuestions();
                 break;
-          
             default:
                 console.log("Your text file has been generated");
                 break;
@@ -138,17 +134,16 @@ function askEngineerQuestions() {
         const engineer = new Engineer(answers.name, answers.id, answers.email, answers.githubUsername);
         const engineersInfo = [
             engineer.getName(),
-        engineer.getId(),
-        engineer.getEmail(),
-        engineer.getRole(),
-        engineer.getGithub(),
-         ].join("\n");
+            engineer.getId(),
+            engineer.getEmail(),
+            engineer.getRole(),
+            engineer.getGithub(),
+            "-".repeat(60),
+            "" //makes an empty line break
+        ].join("\n");
 
         fs.appendFile("log.txt", engineersInfo, err => {
             if (err) throw err;
-
-            //   console.log(managerInfo);
-            "-".repeat(60);
         });
 
         getEmployeeType();
@@ -156,42 +151,56 @@ function askEngineerQuestions() {
 }
 
 
-    // inquirer stuff
-    // after the questions, creae engineer object w/ daata supplied
-    // write to log file using engineer methods
-    // go to getEmployeeType()
-
-
 function askInternQuestions() {
-    // inquirer stuff
-    // after the questions, create intern object w/ data suppplied
-    // write to log file using intern methods
-    // go to getEmployeeType()
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your intern's name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is your intern's id?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is your intern's email?"
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "What is your intern's school?"
+        }
+    ]).then(answers => {
+        answers.name;
+        answers.id;
+        answers.email;
+        answers.school;
+
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+        const internsInfo = [
+            intern.getName(),
+            intern.getId(),
+            intern.getEmail(),
+            intern.getRole(),
+            intern.getSchool(),
+            "-".repeat(60),
+            "" //makes an empty line break
+        ].join("\n");
+
+        fs.appendFile("log.txt", internsInfo, err => {
+            if (err) throw err;
+        });
+
+        getEmployeeType();
+    });
 }
 
 
 
 
-//     {
-//         type: "input",
-//         name: "email",
-//         message: "What is your intern's email?"
-//     },
-//     {
-//         type: "input",
-//         name: "school",
-//         message: "What is your intern's school?"
-//     },
-//     {
-//         type: "list",
-//         message: "What type of team member would you like to add?",
-//         name: "team member",
-//         choices: [
-//             "Manager",
-//             "Engineer",
-//             "Intern"
-//         ]
-//     }
-// 
+
 
 
