@@ -1,18 +1,19 @@
+Team
 ------------------------------------------------------------
-Gary
-1
-Garymail
-Manager
+Role: Manager
+Name: Gary
+Id: 1
+Email: Gary@mail
 ------------------------------------------------------------
-Erick
-2
-Erickmail
-Engineer
-Erickgit
+Role: Engineer
+Name: Erick
+Id: 2
+Email: Erickmail
+Github username: Erickgit
 ------------------------------------------------------------
-Anya
-3
-Anyamail
-Intern
-GW
+Intern: Intern
+Name: Dan
+Id: 3
+Email: Dan@mail.com
+School: GW
 ------------------------------------------------------------

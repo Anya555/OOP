@@ -1,34 +1,16 @@
+//npm packages
 const fs = require("fs");
 const inquirer = require("inquirer");
+// linking to files that have Employee class extensions
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-
-
-// get manager info
-// write to log file
-// go to function asking about type of person
-
-
-// find out whether next person is engineer, intern, or finished
-// if engineer
-// ask engineer questions
-// log engineer stuff
-// ask again
-
-// if intern
-// same as above
-// ask again
-
-// if finished
-// show final message
-
-
 
 getManagerInfo();
 
 function getManagerInfo() {
     inquirer.prompt([
+        //getting manager information using inquirer
         {
             type: "input",
             name: "name",
@@ -49,23 +31,26 @@ function getManagerInfo() {
             name: "roomNum",
             message: "What is your manager's office room number?"
         }
-    ]).then(answers => {
+    ]).then(answers => { // response from inquirer
         answers.name;
         answers.id;
         answers.email;
         answers.roomNum;
-        // create manager object w/ data supplied
-        // log manager info to text file using manager object methods
+        // making manager object
         const manager = new Manager(answers.name, answers.id, answers.email, answers.roomNum);
         const managerInfo = [
+            `Team`,
             "-".repeat(60),
-            manager.getName(),
-            manager.getId(),
-            manager.getEmail(),
-            manager.getRole(),
+            "-".repeat(60),
+            `Role: ${manager.getRole()}`,
+            `Name: ${manager.getName()}`,
+            `Id: ${manager.getId()}`,
+            `Email: ${manager.getEmail()}`,
+            `Office room number: ${manager.getOfficeNumber()}`
             "-".repeat(60),
             "" //makes an empty line break
         ].join("\n");
+        //printing received data to log.txt file
         fs.writeFile("log.txt", managerInfo, err => {
             if (err) throw err;
         });
@@ -130,18 +115,18 @@ function askEngineerQuestions() {
         answers.id;
         answers.email;
         answers.githubUsername;
-
+        // making Engineer object
         const engineer = new Engineer(answers.name, answers.id, answers.email, answers.githubUsername);
         const engineersInfo = [
-            engineer.getName(),
-            engineer.getId(),
-            engineer.getEmail(),
-            engineer.getRole(),
-            engineer.getGithub(),
+            `Role: ${engineer.getRole()}`,
+            `Name: ${engineer.getName()}`,
+            `Id: ${engineer.getId()}`,
+            `Email: ${engineer.getEmail()}`,
+            `Github username: ${engineer.getGithub()}`,
             "-".repeat(60),
             "" //makes an empty line break
         ].join("\n");
-
+       //printing received data to log.txt file
         fs.appendFile("log.txt", engineersInfo, err => {
             if (err) throw err;
         });
@@ -178,18 +163,18 @@ function askInternQuestions() {
         answers.id;
         answers.email;
         answers.school;
-
+        // making intern object
         const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
         const internsInfo = [
-            intern.getName(),
-            intern.getId(),
-            intern.getEmail(),
-            intern.getRole(),
-            intern.getSchool(),
+            `Intern: ${intern.getRole()}`,
+            `Name: ${intern.getName()}`,
+            `Id: ${intern.getId()}`,
+            `Email: ${intern.getEmail()}`,
+            `School: ${intern.getSchool()}`,
             "-".repeat(60),
             "" //makes an empty line break
         ].join("\n");
-
+       //printing received data to log.txt file
         fs.appendFile("log.txt", internsInfo, err => {
             if (err) throw err;
         });
