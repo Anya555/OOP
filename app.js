@@ -10,7 +10,7 @@ getManagerInfo();
 
 function getManagerInfo() {
     inquirer.prompt([
-        //getting manager information using inquirer
+        //getting manager information 
         {
             type: "input",
             name: "name",
@@ -40,16 +40,16 @@ function getManagerInfo() {
         const manager = new Manager(answers.name, answers.id, answers.email, answers.roomNum);
         const managerInfo = [
             `Team`,
-            "-".repeat(60),
+            "-".repeat(60), // makes dashes to separate different employes info
             "-".repeat(60),
             `Role: ${manager.getRole()}`,
             `Name: ${manager.getName()}`,
             `Id: ${manager.getId()}`,
             `Email: ${manager.getEmail()}`,
-            `Office room number: ${manager.getOfficeNumber()}`
+            `Office room number: ${manager.getOfficeNumber()}`,
             "-".repeat(60),
-            "" //makes an empty line break
-        ].join("\n");
+            "" //makes a line break
+        ].join("\n"); //makes an empty line
         //printing received data to log.txt file
         fs.writeFile("log.txt", managerInfo, err => {
             if (err) throw err;
@@ -61,6 +61,7 @@ function getManagerInfo() {
 
 
 function getEmployeeType() {
+    // prompting user to choose a team member type
     inquirer.prompt([
         {
             type: "list",
@@ -73,7 +74,7 @@ function getEmployeeType() {
             ]
         },
     ]).then(answers => {
-        // switch statement
+        // switch statement executes a specific function based on selected member type
         switch (answers.memberType) {
             case 'Engineer':
                 askEngineerQuestions();
@@ -89,6 +90,7 @@ function getEmployeeType() {
 }
 
 function askEngineerQuestions() {
+    //getting engineer information 
     inquirer.prompt([
         {
             type: "input",
@@ -137,6 +139,7 @@ function askEngineerQuestions() {
 
 
 function askInternQuestions() {
+    // getting intern info
     inquirer.prompt([
         {
             type: "input",
