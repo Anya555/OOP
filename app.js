@@ -1,10 +1,12 @@
 //npm packages
 const fs = require("fs");
 const inquirer = require("inquirer");
+const removeEmptyLines = require("remove-blank-lines");
 // linking to files that have Employee class extensions
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+
 
 getManagerInfo();
 
@@ -24,23 +26,32 @@ function getManagerInfo() {
         {
             type: "input",
             name: "email",
-            message: "What is your manager's email?"
+            message: "What is your manager's email?",
+            validate: function (name) {
+                const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if(name.match(mailFormat)){
+                    return true;
+                }
+                return "Please enter a valid email address"
+            }
         },
         {
             type: "input",
             name: "roomNum",
             message: "What is your manager's office room number?"
         }
-    ]).then(answers => { // response from inquirer
+    ]).then(answers => { // accesing response from inquirer
         answers.name;
         answers.id;
         answers.email;
         answers.roomNum;
-        // making manager object
+        // making manager object and giving it parameters that hold inquirer prompts values 
         const manager = new Manager(answers.name, answers.id, answers.email, answers.roomNum);
+        // making new manager's methods into an array and assigning a variable to it
+        // so I can pass it in as a parameter when writing a text file
         const managerInfo = [
-            `Team`,
-            "-".repeat(60), // makes dashes to separate different employes info
+            `Team`, // heading
+            removeEmptyLines("-".repeat(60)), // makes dashes to separate different employes info
             "-".repeat(60),
             `Role: ${manager.getRole()}`,
             `Name: ${manager.getName()}`,
@@ -49,8 +60,9 @@ function getManagerInfo() {
             `Office room number: ${manager.getOfficeNumber()}`,
             "-".repeat(60),
             "" //makes a line break
-        ].join("\n"); //makes an empty line
-        //printing received data to log.txt file
+        ].join("\n"); //Joining each element of a list with a newline
+
+        //writing received data to log.txt file
         fs.writeFile("log.txt", managerInfo, err => {
             if (err) throw err;
         });
@@ -61,7 +73,7 @@ function getManagerInfo() {
 
 
 function getEmployeeType() {
-    // prompting user to choose a team member type
+    // prompting manager to choose a team member type
     inquirer.prompt([
         {
             type: "list",
@@ -105,7 +117,14 @@ function askEngineerQuestions() {
         {
             type: "input",
             name: "email",
-            message: "What is your engineer's email?"
+            message: "What is your engineer's email?",
+            validate: function (name) {
+                const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if(name.match(mailFormat)){
+                    return true;
+                }
+                return "Please enter a valid email address"
+            }
         },
         {
             type: "input",
@@ -117,8 +136,10 @@ function askEngineerQuestions() {
         answers.id;
         answers.email;
         answers.githubUsername;
-        // making Engineer object
+        // making Engineer object  and giving it parameters that hold inquirer prompts values 
         const engineer = new Engineer(answers.name, answers.id, answers.email, answers.githubUsername);
+        // making new engineer's methods into an array and assigning a variable to it
+        // so I can pass it in as a parameter when appending a text file
         const engineersInfo = [
             `Role: ${engineer.getRole()}`,
             `Name: ${engineer.getName()}`,
@@ -126,9 +147,9 @@ function askEngineerQuestions() {
             `Email: ${engineer.getEmail()}`,
             `Github username: ${engineer.getGithub()}`,
             "-".repeat(60),
-            "" //makes an empty line break
-        ].join("\n");
-       //printing received data to log.txt file
+            "" //makes a line break
+        ].join("\n"); // Joining each element of a list with a newline
+        //printing received data to log.txt file
         fs.appendFile("log.txt", engineersInfo, err => {
             if (err) throw err;
         });
@@ -154,7 +175,14 @@ function askInternQuestions() {
         {
             type: "input",
             name: "email",
-            message: "What is your intern's email?"
+            message: "What is your intern's email?",
+            validate: function (name) {
+                const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if(name.match(mailFormat)){
+                    return true;
+                }
+                return "Please enter a valid email address"
+            }
         },
         {
             type: "input",
@@ -166,8 +194,10 @@ function askInternQuestions() {
         answers.id;
         answers.email;
         answers.school;
-        // making intern object
+        // making intern object  and giving it parameters that hold inquirer prompts values 
         const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+        // making new intern's methods into an array and assigning a variable to it
+        // so I can pass it in as a parameter when appending to a text file
         const internsInfo = [
             `Intern: ${intern.getRole()}`,
             `Name: ${intern.getName()}`,
@@ -175,9 +205,9 @@ function askInternQuestions() {
             `Email: ${intern.getEmail()}`,
             `School: ${intern.getSchool()}`,
             "-".repeat(60),
-            "" //makes an empty line break
-        ].join("\n");
-       //printing received data to log.txt file
+            "" //makes a line break
+        ].join("\n"); // Joining each element of a list with a newline
+        //printing received data to log.txt file
         fs.appendFile("log.txt", internsInfo, err => {
             if (err) throw err;
         });

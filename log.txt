@@ -1,19 +1,9 @@
 Team
 ------------------------------------------------------------
+------------------------------------------------------------
 Role: Manager
 Name: Gary
 Id: 1
-Email: Gary@mail
-------------------------------------------------------------
-Role: Engineer
-Name: Erick
-Id: 2
-Email: Erickmail
-Github username: Erickgit
-------------------------------------------------------------
-Intern: Intern
-Name: Dan
-Id: 3
-Email: Dan@mail.com
-School: GW
+Email: Gary@gmail.com
+Office room number: 603
 ------------------------------------------------------------

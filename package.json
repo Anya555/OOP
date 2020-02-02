@@ -18,7 +18,8 @@
   "homepage": "https://github.com/Anya555/OOP#readme",
   "dependencies": {
     "fs": "0.0.1-security",
-    "inquirer": "^7.0.4"
+    "inquirer": "^7.0.4",
+    "remove-blank-lines": "^1.1.1"
   },
   "devDependencies": {
     "jest": "^25.1.0"
