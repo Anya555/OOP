@@ -28,6 +28,8 @@ function getManagerInfo() {
             name: "email",
             message: "What is your manager's email?",
             validate: function (name) {
+// here is a link to a resource with detailed explanation, that I used to validate an email address: 
+// https://www.w3resource.com/javascript/form/email-validation.php
                 const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
                 if(name.match(mailFormat)){
                     return true;
@@ -51,7 +53,7 @@ function getManagerInfo() {
         // so I can pass it in as a parameter when writing a text file
         const managerInfo = [
             `Team`, // heading
-            removeEmptyLines("-".repeat(60)), // makes dashes to separate different employes info
+          removeEmptyLines("-".repeat(60)), // makes dashes to separate different employes info
             "-".repeat(60),
             `Role: ${manager.getRole()}`,
             `Name: ${manager.getName()}`,
@@ -211,7 +213,6 @@ function askInternQuestions() {
         fs.appendFile("log.txt", internsInfo, err => {
             if (err) throw err;
         });
-
         getEmployeeType();
     });
 }

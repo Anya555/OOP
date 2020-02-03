@@ -7,3 +7,15 @@ Id: 1
 Email: Gary@gmail.com
 Office room number: 603
 ------------------------------------------------------------
+Role: Engineer
+Name: Erick
+Id: 2
+Email: Erick@gmail.com
+Github username: Erick5
+------------------------------------------------------------
+Intern: Intern
+Name: Dan
+Id: 3
+Email: Dan@gmail.com
+School: GW
+------------------------------------------------------------
