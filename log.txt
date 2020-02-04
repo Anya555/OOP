@@ -1,6 +1,5 @@
 Team
-------------------------------------------------------------
-------------------------------------------------------------
+============================================================
 Role: Manager
 Name: Gary
 Id: 1
@@ -11,7 +10,7 @@ Role: Engineer
 Name: Erick
 Id: 2
 Email: Erick@gmail.com
-Github username: Erick5
+Github username: Erickgithub5
 ------------------------------------------------------------
 Intern: Intern
 Name: Dan

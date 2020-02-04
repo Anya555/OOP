@@ -1,7 +1,7 @@
 //npm packages
 const fs = require("fs");
 const inquirer = require("inquirer");
-const removeEmptyLines = require("remove-blank-lines");
+
 // linking to files that have Employee class extensions
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
@@ -43,18 +43,15 @@ function getManagerInfo() {
             message: "What is your manager's office room number?"
         }
     ]).then(answers => { // accesing response from inquirer
-        answers.name;
-        answers.id;
-        answers.email;
-        answers.roomNum;
+       
         // making manager object and giving it parameters that hold inquirer prompts values 
         const manager = new Manager(answers.name, answers.id, answers.email, answers.roomNum);
         // making new manager's methods into an array and assigning a variable to it
         // so I can pass it in as a parameter when writing a text file
         const managerInfo = [
             `Team`, // heading
-          removeEmptyLines("-".repeat(60)), // makes dashes to separate different employes info
-            "-".repeat(60),
+          // makes dashes to separate different employes info
+            "=".repeat(60),
             `Role: ${manager.getRole()}`,
             `Name: ${manager.getName()}`,
             `Id: ${manager.getId()}`,
@@ -68,7 +65,6 @@ function getManagerInfo() {
         fs.writeFile("log.txt", managerInfo, err => {
             if (err) throw err;
         });
-
         getEmployeeType();
     })
 }
@@ -134,10 +130,7 @@ function askEngineerQuestions() {
             message: "What is your engineer's Github username?"
         }
     ]).then(answers => {
-        answers.name;
-        answers.id;
-        answers.email;
-        answers.githubUsername;
+        
         // making Engineer object  and giving it parameters that hold inquirer prompts values 
         const engineer = new Engineer(answers.name, answers.id, answers.email, answers.githubUsername);
         // making new engineer's methods into an array and assigning a variable to it
@@ -151,11 +144,11 @@ function askEngineerQuestions() {
             "-".repeat(60),
             "" //makes a line break
         ].join("\n"); // Joining each element of a list with a newline
+
         //printing received data to log.txt file
         fs.appendFile("log.txt", engineersInfo, err => {
             if (err) throw err;
-        });
-
+        }); 
         getEmployeeType();
     });
 }
@@ -192,10 +185,7 @@ function askInternQuestions() {
             message: "What is your intern's school?"
         }
     ]).then(answers => {
-        answers.name;
-        answers.id;
-        answers.email;
-        answers.school;
+        
         // making intern object  and giving it parameters that hold inquirer prompts values 
         const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
         // making new intern's methods into an array and assigning a variable to it
@@ -209,6 +199,7 @@ function askInternQuestions() {
             "-".repeat(60),
             "" //makes a line break
         ].join("\n"); // Joining each element of a list with a newline
+
         //printing received data to log.txt file
         fs.appendFile("log.txt", internsInfo, err => {
             if (err) throw err;
@@ -216,10 +207,6 @@ function askInternQuestions() {
         getEmployeeType();
     });
 }
-
-
-
-
 
 
 
